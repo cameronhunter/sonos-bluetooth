@@ -16,7 +16,7 @@ RUN apt-get update && apt-get install -y \
 # Clone bluetoothradio repository
 #RUN git clone https://github.com/myoung34/bluetoothradio.git /root/bluetoothradio
 ADD https://github.com/myoung34/bluetoothradio/archive/master.zip /root/bluetoothradio-master.zip
-RUN unzip /root/bluetoothradio-master.zip
+RUN unzip /root/bluetoothradio-master.zip -d /root/
 RUN mv /root/bluetoothradio-master /root/bluetoothradio
 
 # Installing bluetoothradio
