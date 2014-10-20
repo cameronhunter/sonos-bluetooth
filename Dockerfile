@@ -15,5 +15,5 @@ RUN cp /root/bluetoothradio/bluetooth-server /etc/init.d
 RUN chmod 755 /etc/init.d/bluetooth-server && chmod +x /etc/init.d/bluetooth-server
 RUN update-rc.d bluetooth-server defaults
 
-RUN echo "echo 'IT WORKS'" > /start
+RUN echo "bin/bash" > /start
 RUN chmod +x /start
