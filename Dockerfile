@@ -10,7 +10,8 @@ RUN apt-get update && apt-get install -y \
   pulseaudio-module-bluetooth \
   python-gobject \
   python-gobject-2 \
-  qdbus
+  qdbus \
+  unzip
 
 # Clone bluetoothradio repository
 #RUN git clone https://github.com/myoung34/bluetoothradio.git /root/bluetoothradio
