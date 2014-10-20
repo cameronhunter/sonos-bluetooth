@@ -12,5 +12,11 @@ RUN cp /root/bluetoothradio/bluetooth-server /etc/init.d
 RUN chmod 755 /etc/init.d/bluetooth-server && chmod +x /etc/init.d/bluetooth-server
 RUN update-rc.d bluetooth-server defaults
 
+RUN echo 'Outputting /etc/bluetooth/audio.conf'
+RUN cat /etc/bluetooth/audio.conf
+
+RUN echo 'Outputting /etc/pulse/daemon.conf'
+RUN cat /etc/pulse/daemon.conf
+
 RUN echo "bin/bash" > /start
 RUN chmod +x /start
