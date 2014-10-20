@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
   unzip
 
 # Get bluetoothradio
-ADD https://github.com/myoung34/bluetoothradio/archive/master.zip /root/bluetoothradio-master.zip
+ADD https://github.com/cameronhunter/bluetoothradio/archive/master.zip /root/bluetoothradio-master.zip
 RUN unzip /root/bluetoothradio-master.zip -d /root/
 RUN mv /root/bluetoothradio-master /root/bluetoothradio
 
