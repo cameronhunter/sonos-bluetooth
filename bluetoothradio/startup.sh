@@ -16,6 +16,7 @@ cd "$( cd -P $DIR && pwd )"
 su $user -c 'pulseaudio --start'
 
 # Set up the bluetooth adapter to be as visible as possible.
+hciconfig hci0 up
 hciconfig hci0 piscan
 
 # Load a bluetooth agent to allow the pairing and connection, and to
