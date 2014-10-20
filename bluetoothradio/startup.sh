@@ -4,7 +4,7 @@ if [ "$(id -u)" != "0" ]; then
   exit 1
 fi
 
-user="pi"
+user="pulse"
 #cd "$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 DIR=$( readlink -f "$( dirname "$0" )")
 cd "$( cd -P $DIR && pwd )"
