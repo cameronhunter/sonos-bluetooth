@@ -15,7 +15,7 @@
 rebootDisconnect=false #only enable this if a reboot of the pi is needed on disconnect
 paID=""
 qPath=""
-user="pi"
+user="root"
 
 unmute() {
 	echo "Unmuting"
