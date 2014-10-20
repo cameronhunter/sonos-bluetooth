@@ -7,26 +7,21 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
   bluez \
   bluez-tools \
-  git-core \
   pulseaudio-module-bluetooth \
   python-gobject \
   python-gobject-2 \
-  qdbus
+  qdbus \
+  unzip
 
-# Clone bluetoothradio repository
-#RUN git clone https://github.com/myoung34/bluetoothradio.git /root/bluetoothradio
-ADD ./bluetoothradio /root/bluetoothradio
+# Get bluetoothradio
+ADD https://github.com/myoung34/bluetoothradio/archive/master.zip /root/bluetoothradio-master.zip
+RUN unzip /root/bluetoothradio-master.zip -d /root/
+RUN mv /root/bluetoothradio-master /root/bluetoothradio
 
 # Installing bluetoothradio
 RUN cp /root/bluetoothradio/bluetooth-server /etc/init.d
 RUN chmod 755 /etc/init.d/bluetooth-server && chmod +x /etc/init.d/bluetooth-server
 RUN update-rc.d bluetooth-server defaults
-
-#RUN echo 'Outputting /etc/bluetooth/audio.conf'
-#RUN cat /etc/bluetooth/audio.conf
-
-#RUN echo 'Outputting /etc/pulse/daemon.conf'
-#RUN cat /etc/pulse/daemon.conf
 
 RUN echo "tail -f /var/log/syslog" > /start
 RUN chmod +x /start
