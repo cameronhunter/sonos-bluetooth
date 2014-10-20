@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
   unzip
 
 # Get bluetoothradio
-ADD https://github.com/myoung34/bluetoothradio/archive/master.zip /root/bluetoothradio-master.zip
+ADD https://github.com/cameronhunter/bluetoothradio/archive/master.zip /root/bluetoothradio-master.zip
 RUN unzip /root/bluetoothradio-master.zip -d /root/
 RUN mv /root/bluetoothradio-master /root/bluetoothradio
 
@@ -23,5 +23,5 @@ RUN cp /root/bluetoothradio/bluetooth-server /etc/init.d
 RUN chmod 755 /etc/init.d/bluetooth-server && chmod +x /etc/init.d/bluetooth-server
 RUN update-rc.d bluetooth-server defaults
 
-RUN echo "tail -f /var/log/syslog" > /start
+RUN echo "./root/bluetoothradio/startup.sh" > /start
 RUN chmod +x /start
