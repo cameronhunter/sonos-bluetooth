@@ -12,3 +12,5 @@ RUN git clone https://github.com/myoung34/bluetoothradio.git
 ADD bluetoothradio /bluetoothradio
 WORKDIR /bluetoothradio
 
+
+RUN echo 'IT WORKS'
