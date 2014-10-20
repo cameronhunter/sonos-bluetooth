@@ -7,7 +7,6 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -y \
   bluez \
   bluez-tools \
-  git-core \
   pulseaudio-module-bluetooth \
   python-gobject \
   python-gobject-2 \
