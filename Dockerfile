@@ -1,6 +1,8 @@
 FROM resin/rpi-raspbian:wheezy
 MAINTAINER Cameron Hunter <hello@cameronhunter.co.uk>
 
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN echo 'Installing bluetoothradio dependencies'
 RUN apt-get update && apt-get install -y \
   bluez \
