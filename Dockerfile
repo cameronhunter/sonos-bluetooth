@@ -9,6 +9,7 @@ RUN apt-get -y install bluez pulseaudio-module-bluetooth python-gobject python-g
 
 RUN echo 'Cloning bluetoothradio repository'
 RUN git clone https://github.com/myoung34/bluetoothradio.git bluetoothradio
+RUN mkdir -p /root/bluetoothradio
 ADD bluetoothradio /root/bluetoothradio
 
 RUN echo "echo 'IT WORKS'" > /start
