@@ -1,4 +1,4 @@
-FROM resin/rpi-buildstep-armv6hf:latest
+FROM resin/rpi-raspbian:wheezy
 
 RUN echo 'Updating OS'
 RUN apt-get update
