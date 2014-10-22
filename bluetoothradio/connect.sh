@@ -83,7 +83,7 @@ main() {
 			break
 		fi
 
-		echo "[Disconnected] Zzz..."
+		#echo "[Disconnected] Zzz..."
 		sleep 1
 	done
 
@@ -112,7 +112,7 @@ do
 		main
 	fi
 	
-	echo "[Connected] Zzz..."
+	#echo "[Connected] Zzz..."
 	sleep 5
 done
 
