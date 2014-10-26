@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y \
   pulseaudio-module-bluetooth \
   python-gobject \
   python-gobject-2 \
-  qdbus
+  qdbus \
+  rfkill
 
 ADD bluetoothradio /root/bluetoothradio
 
