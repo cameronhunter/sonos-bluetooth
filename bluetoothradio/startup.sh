@@ -18,6 +18,8 @@ su $user -c 'pulseaudio --start'
 # Set up the bluetooth adapter to be as visible as possible.
 service bluetooth restart
 rfkill unblock all
+lsusb
+hciconfig -a dev
 hciconfig hci0 up
 hciconfig hci0 piscan
 
