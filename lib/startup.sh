@@ -13,7 +13,7 @@ su $SONOS_USER -c 'pulseaudio --start'
 service bluetooth restart
 
 hciconfig hci0 name $SONOS_NAME
-hciconfig hci0 class 0x280404
+hciconfig hci0 class 0x200404
 
 hciconfig -a dev
 
