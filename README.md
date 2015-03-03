@@ -16,3 +16,7 @@ Trying to make a Raspberry Pi Bluetooth A2DP to Sonos bridge. I want it to be co
 ## Links
 * [Raspberry Pi network audio player: pulseaudio, DLNA and bluetooth A2DP](http://rootprompt.apatsch.net/2013/02/20/raspberry-pi-network-audio-player-pulseaudio-dlna-and-bluetooth-a2dp-part-1-pulseaudio/)
 * [A2DP Sink Pre-built RPI Image](http://www.raspberrypi.org/forums/viewtopic.php?t=33943&p=347843)
+* [DAC Raspbian Pi2 and A2DP](https://www.hifiberry.com/forums/topic/dac-raspbian-pi2-and-a2dp/)
+* [ragusa87/bluetooth-a2dp Gist](https://gist.github.com/ragusa87/6687903)
+* [Debian BluetoothUser A2DP](https://wiki.debian.org/BluetoothUser/a2dp)
+* [gpduck/bluetoothradio Github](https://github.com/gpduck/bluetoothradio)
