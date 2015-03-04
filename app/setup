@@ -1,0 +1,6 @@
+#!/bin/sh
+hciconfig hci0 name Sonos
+hciconfig hci0 class 0x240414
+#hciconfig hci0 sspmode 1
+hciconfig hci0 up
+hciconfig hci0 piscan
