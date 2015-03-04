@@ -6,14 +6,16 @@ cd "$( cd -P $DIR && pwd )"
 # Modprobe the internal sound card
 #modprobe snd_bcm2835
 
+ls -l /dev/snd
+
 # Start pulseaudio
 su $SONOS_USER -c 'pulseaudio --start'
 
 # Set up the bluetooth adapter to be as visible as possible.
 service bluetooth restart
 
-hciconfig hci0 name $SONOS_NAME
-hciconfig hci0 class 0x200404
+hciconfig hci0 name $BLUETOOTH_NAME
+hciconfig hci0 class $BLUETOOTH_CLASS
 
 hciconfig -a dev
 

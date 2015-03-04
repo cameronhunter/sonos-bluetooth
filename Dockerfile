@@ -16,11 +16,12 @@ RUN sed -i '/; resample-method = speex-float-3/c\resample-method = trivial' /etc
 
 # Setup user
 ENV SONOS_USER sonos
-ENV PULSEAUDIO_GROUP lp
-RUN useradd --create-home --groups $PULSEAUDIO_GROUP $SONOS_USER
+ENV GROUPS lp
+RUN useradd --create-home --groups $GROUPS $SONOS_USER
 
 # Setup bluetooth
-ENV SONOS_NAME Sonos
+ENV BLUETOOTH_NAME Sonos
+ENV BLUETOOTH_CLASS 0x240414
 
 # Run sonos-bluetooth
 COPY lib /sonos-bluetooth
