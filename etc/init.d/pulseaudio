@@ -13,7 +13,7 @@ LOG="/var/log/`basename $0`.log"
 
 start() {
   echo "Starting pulseaudio as user \"$1\""
-  su -c "pulseaudio -vvvv --start" $1
+  su -c "pulseaudio -vvvv --start --resample-method = trivial" $1
 }
 
 stop() {
