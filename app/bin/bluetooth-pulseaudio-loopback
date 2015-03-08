@@ -1,6 +1,9 @@
 #!/bin/bash
 audio_sink=0
 name=$(sed 's/\"//g' <<< $NAME)
+
+logger "[GOT HERE] $name"
+
 #exit if not a BT address
 if [[ ! $name =~ ^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$ ]]; then exit 0;  fi
 

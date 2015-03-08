@@ -15,11 +15,7 @@ COPY etc/init.d/*         /etc/init.d/
 COPY etc/pulse/*          /etc/pulse/
 COPY etc/udev/rules.d/*   /etc/udev/rules.d/
 
-RUN addgroup --system pulse; \
-    addgroup --system pulse-access; \
-    adduser --system --ingroup pulse --home /var/run/pulse pulse; \
-    adduser pulse audio; \
-    adduser pulse lp; \
+RUN adduser pulse lp; \
     adduser root pulse-access; \
     update-rc.d pulseaudio defaults; \
     update-rc.d bluetooth defaults;
