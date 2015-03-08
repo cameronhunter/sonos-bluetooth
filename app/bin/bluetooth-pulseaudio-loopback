@@ -1,30 +1,30 @@
 #!/bin/bash
-audio_sink=$(pactl list | grep -m 1 "Name: alsa_output" | cut -c 8-)
 name=$(sed 's/\"//g' <<< $NAME)
 
-logger "[GOT HERE] $name"
-
 #exit if not a BT address
-if [[ ! $name =~ ^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$ ]]; then exit 0;  fi
+if [[ ! $name =~ ^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$ ]]; then
+  exit 0;
+fi
 
-audio_source=bluez_source.$(sed 's/:/_/g' <<< $name)
+SOURCE=bluez_source.$(sed 's/:/_/g' <<< $name)
+SINK=$(pactl list | grep -m 1 "Name: alsa_output" | cut -c 8-)
 
 action=$(expr "$ACTION" : "\([a-zA-Z]\+\).*")
 if [ "$action" = "add" ]; then
   logger "[$(basename $0)] Bluetooth device is being added [$name]"
-  logger "[$(basename $0)] Patching $audio_source into ALSA sink #$audio_sink"
+  logger "[$(basename $0)] Patching $SOURCE into ALSA sink #$SINK"
+
   # loop back this source to the default sink
-  logger "[$(basename $0)] pactl load-module module-loopback source=$audio_source sink=$audio_sink"
-  handle=$(pactl load-module module-loopback source=$audio_source sink=$audio_sink)
+  handle=$(pactl load-module module-loopback source=$SOURCE sink=$SINK)
   logger "[$(basename $0)] PulseAudio module-loopback returned handle [$handle]"
 fi
 
 if [ "$action" = "remove" ]; then
-    logger "[$(basename $0)] Bluetooth device is being removed [$name]"
-    # remove any loopback modules assigned to this source
-    # only required for USB sound cards, which PulseAudio will not automatically remove
-    for handle in $(pactl list short modules | grep module-loopback | grep source=$audio_source | cut -f 1); do
-      logger "[$(basename $0)] Unloading module-loopback with handle [$handle]"
-      pactl unload-module $handle
-    done
+  logger "[$(basename $0)] Bluetooth device is being removed [$name]"
+  # remove any loopback modules assigned to this source
+  # only required for USB sound cards, which PulseAudio will not automatically remove
+  for handle in $(pactl list short modules | grep module-loopback | grep source=$SOURCE | cut -f 1); do
+    logger "[$(basename $0)] Unloading module-loopback with handle [$handle]"
+    pactl unload-module $handle
+  done
 fi
