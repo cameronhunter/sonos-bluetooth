@@ -1,0 +1,10 @@
+[Unit]
+Description=Configures sonos-bluetooth
+After=bluetooth.service
+Requires=bluetooth.service
+
+[Service]
+ExecStart=/app/bin/bluetooth-setup
+
+[Install]
+WantedBy=bluetooth.target
