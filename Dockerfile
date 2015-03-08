@@ -6,7 +6,7 @@ ENV SONOS_USER sonos
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     bluez \
-    bluez-utils \
+    bluez-tools \
     pulseaudio-module-bluetooth \
     nano
 
