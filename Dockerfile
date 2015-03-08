@@ -11,14 +11,12 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     nano
 
 COPY app                  /app
+COPY etc/init.d/*         /etc/init.d/
 COPY etc/pulse/*          /etc/pulse/
-COPY etc/systemd/system/* /etc/systemd/system/
 COPY etc/udev/rules.d/*   /etc/udev/rules.d/
 
 RUN adduser pulse lp; \
-    mkdir -p /var/run/pulse; \
-    chown -R pulse:pulse-access /var/run/pulse; \
-    systemctl enable pulseaudio; \
-    systemctl enable bluetooth-setup;
+    update-rc.d pulseaudio defaults; \
+    update-rc.d bluetooth-config defaults;
 
 CMD ["/sbin/init"]

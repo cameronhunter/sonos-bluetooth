@@ -1,5 +1,0 @@
-#!/bin/sh
-hciconfig hci0 name $(cat /app/config/bluetooth-name)
-hciconfig hci0 class 0x240414
-hciconfig hci0 up
-hciconfig hci0 piscan

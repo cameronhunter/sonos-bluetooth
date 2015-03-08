@@ -1,0 +1,47 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:            bluetooth-configuration
+# Required-Start:      $local_fs $syslog dbus
+# Required-Stop:       $local_fs $syslog
+# Default-Start:       2 3 4 5
+# Default-Stop:        0 1 6
+# Short-Description:   Configures bluetooth
+### END INIT INFO
+
+. /lib/lsb/init-functions
+
+BLUETOOTH_NAME=$(cat /app/config/bluetooth-name)
+
+case "${1}" in
+  start)
+    log_daemon_msg "Configuring bluetooth"
+    hciconfig hci0 name $BLUETOOTH_NAME
+    hciconfig hci0 class 0x240414
+    hciconfig hci0 up
+    hciconfig hci0 piscan
+    log_end_msg 0
+    ;;
+
+  stop)
+    log_daemon_msg "Stopping bluetooth scanning"
+    hciconfig hci0 noscan
+    log_end_msg 0
+    ;;
+
+  restart)
+    ${0} stop
+    sleep 1
+    ${0} start
+    ;;
+
+  status)
+    status_of_proc "$DAEMON" "`basename $DAEMON`" && exit 0 || exit $?
+    ;;
+
+  *)
+    echo "Usage: ${0} {start|stop|restart|status}"
+    exit 1
+    ;;
+esac
+
+exit 0
