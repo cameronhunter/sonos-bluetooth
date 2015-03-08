@@ -1,6 +1,6 @@
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:            bluetooth-configuration
+# Provides:            bluetooth-config
 # Required-Start:      $local_fs $syslog dbus
 # Required-Stop:       $local_fs $syslog
 # Default-Start:       2 3 4 5
