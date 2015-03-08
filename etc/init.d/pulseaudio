@@ -1,0 +1,33 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          pulseaudio
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start pulseaudio sound server in user mode
+### END INIT INFO
+
+RUN_AS=sonos
+
+case "$1" in
+  start)
+    echo "Starting pulseaudio as user \"$RUN_AS\""
+    su -c "pulseaudio --start --resample-method=trivial" $RUN_AS
+    ;;
+  stop)
+    echo "Stopping pulseaudio"
+    su -c "pulseaudio --kill"
+    ;;
+  restart)
+    $0 stop
+    sleep 1
+    $0 start
+    ;;
+  *)
+    echo "Usage: /etc/init.d/pulseaudio {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0

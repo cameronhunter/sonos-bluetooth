@@ -1,0 +1,63 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          sonos-bluetooth-agent
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Configure and start sonos-bluetooth agent
+### END INIT INFO
+
+NAME="Sonos"
+CLASS="0x240414"
+PIN_CODE="4510"
+
+configure() {
+  echo "Configuring sonos-bluetooth using name \"$1\" and class \"$2\""
+  hciconfig hci0 name $1
+  hciconfig hci0 class $2
+}
+
+start_scan() {
+  echo "Starting sonos-bluetooth scanning"
+  hciconfig hci0 up
+  hciconfig hci0 piscan
+}
+
+stop_scan() {
+  echo "Stopping sonos-bluetooth scanning"
+  hciconfig hci0 noscan
+}
+
+start_agent() {
+  echo "Starting sonos-bluetooth agent with PIN \"$1\""
+  bluetooth-agent $1
+}
+
+stop_agent() {
+  echo "Stopping sonos-bluetooth agent"
+  pkill -f bluetooth-agent
+}
+
+case "$1" in
+  start)
+    configure $NAME $CLASS
+    start_scan
+    start_agent $PIN_CODE
+    ;;
+  stop)
+    stop_agent
+    stop_scan
+    ;;
+  restart)
+    $0 stop
+    sleep 1
+    $0 start
+    ;;
+  *)
+    echo "Usage: /etc/init.d/sonos-bluetooth-agent {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0

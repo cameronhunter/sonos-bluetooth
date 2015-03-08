@@ -1,4 +1,4 @@
-FROM resin/rpi-raspbian:jessie
+FROM resin/rpi-raspbian:wheezy
 
 MAINTAINER Cameron Hunter <hello@cameronhunter.co.uk>
 
@@ -7,19 +7,16 @@ ENV BLUETOOTH_NAME Sonos
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     bluez \
+    bluez-utils \
     pulseaudio-module-bluetooth \
-    python-gobject \
-    python-gobject-2 \
     qdbus
 
-COPY app                    /app
-COPY etc/bluetooth/*        /etc/bluetooth/
-COPY etc/systemd/system/*   /etc/systemd/system/
+COPY app          /app
+COPY etc/init.d/* /etc/init.d/
 
 RUN useradd --system --groups audio,lp $SONOS_USER; \
-    systemctl enable bluetooth; \
-    systemctl enable bluetooth-agent; \
-    systemctl enable bluetooth-server; \
-    systemctl enable pulseaudio;
+    update-rc.d pulseaudio defaults; \
+    update-rc.d sonos-bluetooth-agent defaults; \
+    update-rc.d sonos-bluetooth-server defaults;
 
 CMD ["/sbin/init"]

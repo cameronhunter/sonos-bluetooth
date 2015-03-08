@@ -1,0 +1,31 @@
+#!/bin/sh
+### BEGIN INIT INFO
+# Provides:          sonos-bluetooth-server
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start sonos-bluetooth server
+### END INIT INFO
+
+case "$1" in
+  start)
+    echo "Starting sonos-bluetooth server"
+    /app/server
+    ;;
+  stop)
+    echo "Stopping sonos-bluetooth server"
+    pkill -f /app/server
+    ;;
+  restart)
+    $0 stop
+    sleep 1
+    $0 start
+    ;;
+  *)
+    echo "Usage: /etc/init.d/sonos-bluetooth-server {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0
