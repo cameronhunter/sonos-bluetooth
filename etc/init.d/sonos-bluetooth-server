@@ -8,24 +8,20 @@
 # Short-Description: Start sonos-bluetooth server
 ### END INIT INFO
 
+. /lib/lsb/init-functions
+
 LOG="/var/log/`basename $0`.log"
-
-start() {
-  echo "Starting sonos-bluetooth server"
-  /app/bin/server
-}
-
-stop() {
-  echo "Stopping sonos-bluetooth server"
-  pkill -f /app/bin/server
-}
 
 case "$1" in
   start)
-    start >> $LOG 2>> $LOG
+    log_daemon_msg "Starting sonos-bluetooth server..."
+    /app/bin/server | tee >> $LOG 2>> $LOG
+    log_end_msg $?
     ;;
   stop)
-    stop >> $LOG 2>> $LOG
+    log_daemon_msg "Stopping sonos-bluetooth server..."
+    pkill -f /app/bin/server | tee >> $LOG 2>> $LOG
+    log_end_msg $?
     ;;
   restart)
     $0 stop
@@ -33,7 +29,7 @@ case "$1" in
     $0 start
     ;;
   *)
-    echo "Usage: /etc/init.d/sonos-bluetooth-server {start|stop|restart}"
+    echo "Usage: $0 {start|stop|restart}"
     exit 1
     ;;
 esac

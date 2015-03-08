@@ -13,6 +13,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
 
 COPY app          /app
 COPY etc/init.d/* /etc/init.d/
+COPY etc/pulse/* /etc/pulse/
+COPY etc/udev/rules.d/* /etc/udev/rules.d/
 
 RUN useradd --create-home --groups audio,lp $SONOS_USER; \
     update-rc.d pulseaudio defaults; \

@@ -8,46 +8,39 @@
 # Short-Description: Configure and start sonos-bluetooth agent
 ### END INIT INFO
 
+. /lib/lsb/init-functions
+
 PIN=$(cat /app/config/pin)
 BLUETOOTH_NAME=$(cat /app/config/bluetooth-name)
 BLUETOOTH_CLASS="0x240414"
 
 LOG="/var/log/`basename $0`.log"
 
-configure() {
-  echo "Configuring sonos-bluetooth using name \"$1\" and class \"$2\""
-  hciconfig hci0 name $1
-  hciconfig hci0 class $2
-  hciconfig hci0 sspmode 0
-}
-
-start_scan() {
-  echo "Starting sonos-bluetooth scanning"
-  hciconfig hci0 up
-  hciconfig hci0 piscan
-}
-
-stop_scan() {
-  echo "Stopping sonos-bluetooth scanning"
-  hciconfig hci0 noscan
-}
-
-start_agent() {
-  echo "Starting sonos-bluetooth agent with PIN \"$1\""
-  bluetooth-agent $1
-}
-
-stop_agent() {
-  echo "Stopping sonos-bluetooth agent"
-  pkill -f bluetooth-agent
-}
-
 case "$1" in
   start)
-    (configure $BLUETOOTH_NAME $BLUETOOTH_CLASS; start_scan; start_agent $PIN) >> $LOG 2>> $LOG
+    log_daemon_msg "Configuring sonos-bluetooth..."
+    hciconfig hci0 name $BLUETOOTH_NAME
+    hciconfig hci0 class $BLUETOOTH_CLASS
+    hciconfig hci0 sspmode 0
+    log_end_msg 0
+
+    log_daemon_msg "Enabling bluetooth scanning..."
+    hciconfig hci0 up
+    hciconfig hci0 piscan
+    log_end_msg 0
+
+    log_daemon_msg "Starting sonos-bluetooth agent with PIN $PIN..."
+    bluetooth-agent $PIN | tee >> $LOG 2>> $LOG
+    log_end_msg $?
     ;;
   stop)
-    (stop_agent; stop_scan) >> $LOG 2>> $LOG
+    log_daemon_msg "Stopping sonos-bluetooth agent..."
+    pkill -f bluetooth-agent | tee >> $LOG 2>> $LOG
+    log_end_msg $?
+
+    log_daemon_msg "Disabling bluetooth scanning..."
+    hciconfig hci0 noscan
+    log_end_msg 0
     ;;
   restart)
     $0 stop
@@ -55,7 +48,7 @@ case "$1" in
     $0 start
     ;;
   *)
-    echo "Usage: /etc/init.d/sonos-bluetooth-agent {start|stop|restart}"
+    echo "Usage: $0 {start|stop|restart}"
     exit 1
     ;;
 esac

@@ -8,25 +8,21 @@
 # Short-Description: Start pulseaudio sound server in user mode
 ### END INIT INFO
 
+. /lib/lsb/init-functions
+
 RUN_AS=sonos
 LOG="/var/log/`basename $0`.log"
 
-start() {
-  echo "Starting pulseaudio as user \"$1\""
-  su -c "pulseaudio -vvvv --start --resample-method = trivial" $1
-}
-
-stop() {
-  echo "Stopping pulseaudio"
-  su -c "pulseaudio --kill"
-}
-
 case "$1" in
   start)
-    start $RUN_AS >> $LOG 2>> $LOG
+    log_daemon_msg "Starting pulseaudio as $RUN_AS..."
+    su -c "pulseaudio -vvvv --start --resample-method=trivial" $RUN_AS | tee >> $LOG 2>> $LOG
+    log_end_msg $?
     ;;
   stop)
-    stop >> $LOG 2>> $LOG
+    log_daemon_msg "Stopping pulseaudio..."
+    su -c "pulseaudio --kill" $RUN_AS | tee >> $LOG 2>> $LOG
+    log_end_msg $?
     ;;
   restart)
     $0 stop
@@ -34,7 +30,7 @@ case "$1" in
     $0 start
     ;;
   *)
-    echo "Usage: /etc/init.d/pulseaudio {start|stop|restart}"
+    echo "Usage: $0 {start|stop|restart}"
     exit 1
     ;;
 esac
