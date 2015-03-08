@@ -9,15 +9,24 @@
 ### END INIT INFO
 
 RUN_AS=sonos
+LOG="/var/log/`basename $0`.log"
+
+start() {
+  echo "Starting pulseaudio as user \"$1\""
+  su -c "pulseaudio --start --resample-method=trivial" $1
+}
+
+stop() {
+  echo "Stopping pulseaudio"
+  su -c "pulseaudio --kill"
+}
 
 case "$1" in
   start)
-    echo "Starting pulseaudio as user \"$RUN_AS\""
-    su -c "pulseaudio --start --resample-method=trivial" $RUN_AS
+    start $RUN_AS >> $LOG 2>> $LOG
     ;;
   stop)
-    echo "Stopping pulseaudio"
-    su -c "pulseaudio --kill"
+    stop >> $LOG 2>> $LOG
     ;;
   restart)
     $0 stop

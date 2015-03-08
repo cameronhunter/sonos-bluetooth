@@ -8,14 +8,17 @@
 # Short-Description: Configure and start sonos-bluetooth agent
 ### END INIT INFO
 
-NAME="Sonos"
-CLASS="0x240414"
 PIN_CODE="4510"
+BLUETOOTH_NAME="Sonos"
+BLUETOOTH_CLASS="0x240414"
+
+LOG="/var/log/`basename $0`.log"
 
 configure() {
   echo "Configuring sonos-bluetooth using name \"$1\" and class \"$2\""
   hciconfig hci0 name $1
   hciconfig hci0 class $2
+  hciconfig hci0 sspmode 0
 }
 
 start_scan() {
@@ -41,13 +44,10 @@ stop_agent() {
 
 case "$1" in
   start)
-    configure $NAME $CLASS
-    start_scan
-    start_agent $PIN_CODE
+    (configure $BLUETOOTH_NAME $BLUETOOTH_CLASS; start_scan; start_agent $PIN_CODE) >> $LOG 2>> $LOG
     ;;
   stop)
-    stop_agent
-    stop_scan
+    (stop_agent; stop_scan) >> $LOG 2>> $LOG
     ;;
   restart)
     $0 stop

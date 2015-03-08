@@ -8,14 +8,24 @@
 # Short-Description: Start sonos-bluetooth server
 ### END INIT INFO
 
+LOG="/var/log/`basename $0`.log"
+
+start() {
+  echo "Starting sonos-bluetooth server"
+  /app/server
+}
+
+stop() {
+  echo "Stopping sonos-bluetooth server"
+  pkill -f /app/server
+}
+
 case "$1" in
   start)
-    echo "Starting sonos-bluetooth server"
-    /app/server
+    start >> $LOG 2>> $LOG
     ;;
   stop)
-    echo "Stopping sonos-bluetooth server"
-    pkill -f /app/server
+    stop >> $LOG 2>> $LOG
     ;;
   restart)
     $0 stop
