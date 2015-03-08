@@ -15,8 +15,9 @@ COPY etc/pulse/*          /etc/pulse/
 COPY etc/systemd/system/* /etc/systemd/system/
 COPY etc/udev/rules.d/*   /etc/udev/rules.d/
 
-RUN adduser --system --ingroup pulse --home /var/run/pulse pulse; \
-    adduser pulse lp; \
+RUN adduser pulse lp; \
+    mkdir -p /var/run/pulse; \
+    chown -R pulse:pulse-access /var/run/pulse; \
     systemctl enable pulseaudio; \
     systemctl enable bluetooth-setup;
 

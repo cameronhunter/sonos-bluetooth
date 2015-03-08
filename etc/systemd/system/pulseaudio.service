@@ -3,7 +3,6 @@ Description=PulseAudio
 
 [Service]
 Type=forking
-User=pulse
 ExecStart=/usr/bin/pulseaudio --system --disallow-exit --disallow-module-loading=0 --daemonize --high-priority --resample-method=trivial
 ExecStop=/usr/bin/pulseaudio --kill
 
