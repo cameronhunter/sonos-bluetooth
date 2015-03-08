@@ -16,12 +16,12 @@ LOG="/var/log/`basename $0`.log"
 case "$1" in
   start)
     log_daemon_msg "Starting pulseaudio as $RUN_AS..."
-    su -c "pulseaudio -vvvv --start --resample-method=trivial" $RUN_AS | tee >> $LOG 2>> $LOG
+    su -c "pulseaudio -vvvv --start --log-target=syslog --resample-method=trivial" $RUN_AS
     log_end_msg $?
     ;;
   stop)
     log_daemon_msg "Stopping pulseaudio..."
-    su -c "pulseaudio --kill" $RUN_AS | tee >> $LOG 2>> $LOG
+    su -c "pulseaudio --log-target=syslog --kill" $RUN_AS
     log_end_msg $?
     ;;
   restart)

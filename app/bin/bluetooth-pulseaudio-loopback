@@ -11,7 +11,7 @@ action=$(expr "$ACTION" : "\([a-zA-Z]\+\).*")
 if [ "$action" = "add" ]; then
   logger "[$(basename $0)] Bluetooth device is being added [$name]"
   logger "[$(basename $0)] Patching $audio_source into ALSA sink #$audio_sink"
-  
+
   handle=$(su -c "pactl load-module module-loopback source=$audio_source sink=$audio_sink" $RUN_AS)
   logger "[$(basename $0)] PulseAudio module-loopback returned handle [$handle]"
 fi

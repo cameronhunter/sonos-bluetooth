@@ -1,4 +1,4 @@
-FROM resin/rpi-raspbian:wheezy
+FROM resin/rpi-raspbian:jessie
 
 MAINTAINER Cameron Hunter <hello@cameronhunter.co.uk>
 
@@ -11,10 +11,10 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     qdbus \
     nano
 
-COPY app          /app
-COPY etc/init.d/* /etc/init.d/
-COPY etc/pulse/* /etc/pulse/
-COPY etc/udev/rules.d/* /etc/udev/rules.d/
+COPY app                  /app
+COPY etc/init.d/*         /etc/init.d/
+COPY etc/pulse/*          /etc/pulse/
+COPY etc/udev/rules.d/*   /etc/udev/rules.d/
 
 RUN useradd --create-home --groups audio,lp $SONOS_USER; \
     update-rc.d pulseaudio defaults; \
