@@ -13,6 +13,12 @@ Trying to make a Raspberry Pi Bluetooth A2DP to Sonos bridge. I want it to be co
 * A completely reproducible result &mdash; there are many how-to guides on how to achieve bluetooth audio with a RaspberryPi but they are not always reproducible.
 * Easy installation onto a RaspberryPi device.
 
+## Notes
+### Bluetooth
+* I can't seem to configure `Bluez5` to use legacy pairing mode (i.e. pin code).
+* `Bluez5` doesn't include the `bluetooth-agent` anymore.
+* I can't get `Bluez4` to use `main.conf` for general configuration (`hcid.conf` is `Bluez3` only)
+
 ## Links
 
 ### Useful
@@ -31,3 +37,4 @@ Trying to make a Raspberry Pi Bluetooth A2DP to Sonos bridge. I want it to be co
 * [RaspberryPi Forums - Pulseaudio 5 and Bluez 5.23](http://www.raspberrypi.org/forums/viewtopic.php?f=29&t=87138&p=636181&hilit=a2dp#p636181)
 * [Helpful systemd forum post](https://wiki.archlinux.org/index.php/Systemd/User#D-Bus)
 * [Forum post on simple-agent](http://www.linuxquestions.org/questions/linux-wireless-networking-41/setting-up-bluez-with-a-passkey-pin-to-be-used-as-headset-for-iphone-816003/#post5149524)
+* [Helpful template for init.d scripts](https://github.com/fhd/init-script-template/blob/master/template)

@@ -12,12 +12,12 @@ LOG="/var/log/`basename $0`.log"
 
 start() {
   echo "Starting sonos-bluetooth server"
-  /app/server
+  /app/bin/server
 }
 
 stop() {
   echo "Stopping sonos-bluetooth server"
-  pkill -f /app/server
+  pkill -f /app/bin/server
 }
 
 case "$1" in

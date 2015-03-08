@@ -8,8 +8,8 @@
 # Short-Description: Configure and start sonos-bluetooth agent
 ### END INIT INFO
 
-PIN_CODE="4510"
-BLUETOOTH_NAME="Sonos"
+PIN=$(cat /app/config/pin)
+BLUETOOTH_NAME=$(cat /app/config/bluetooth-name)
 BLUETOOTH_CLASS="0x240414"
 
 LOG="/var/log/`basename $0`.log"
@@ -44,7 +44,7 @@ stop_agent() {
 
 case "$1" in
   start)
-    (configure $BLUETOOTH_NAME $BLUETOOTH_CLASS; start_scan; start_agent $PIN_CODE) >> $LOG 2>> $LOG
+    (configure $BLUETOOTH_NAME $BLUETOOTH_CLASS; start_scan; start_agent $PIN) >> $LOG 2>> $LOG
     ;;
   stop)
     (stop_agent; stop_scan) >> $LOG 2>> $LOG
