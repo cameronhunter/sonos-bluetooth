@@ -19,6 +19,7 @@ case "${1}" in
     start-stop-daemon --start --background $SSD_OPTIONS
     log_progress_msg "${DAEMON}"
 
+    logger "Setting bluetooth name to $(cat /app/config/bluetooth-name)"
     hciconfig hci0 name $(cat /app/config/bluetooth-name)
     hciconfig hci0 class 0x240414
     hciconfig hci0 up > /dev/null 2>&1

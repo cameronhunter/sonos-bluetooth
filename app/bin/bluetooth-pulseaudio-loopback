@@ -1,5 +1,5 @@
 #!/bin/bash
-audio_sink=0
+audio_sink=$(pactl list | grep -m 1 "Name: alsa_output" | cut -c 8-)
 name=$(sed 's/\"//g' <<< $NAME)
 
 logger "[GOT HERE] $name"
@@ -14,6 +14,7 @@ if [ "$action" = "add" ]; then
     logger "[$(basename $0)] Bluetooth device is being added [$name]"
     logger "[$(basename $0)] Patching $audio_source into ALSA sink #$audio_sink"
     # loop back this source to the default sink
+    logger "[$(basename $0)] pactl load-module module-loopback source=$audio_source sink=$audio_sink"
     handle=$(pactl load-module module-loopback source=$audio_source sink=$audio_sink)
     logger "[$(basename $0)] PulseAudio module-loopback returned handle [$handle]"
 fi
@@ -23,7 +24,7 @@ if [ "$action" = "remove" ]; then
     # remove any loopback modules assigned to this source
     # only required for USB sound cards, which PulseAudio will not automatically remove
     for handle in $(pactl list short modules | grep module-loopback | grep source=$audio_source | cut -f 1); do
-        logger "[$(basename $0)] Unloading module-loopback with handle [$handle]"
-        pactl unload-module $handle
+      logger "[$(basename $0)] Unloading module-loopback with handle [$handle]"
+      pactl unload-module $handle
     done
 fi
