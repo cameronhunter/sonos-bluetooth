@@ -39,3 +39,8 @@ Trying to make a Raspberry Pi Bluetooth A2DP to Sonos bridge. I want it to be co
 * [Helpful systemd forum post](https://wiki.archlinux.org/index.php/Systemd/User#D-Bus)
 * [Forum post on simple-agent](http://www.linuxquestions.org/questions/linux-wireless-networking-41/setting-up-bluez-with-a-passkey-pin-to-be-used-as-headset-for-iphone-816003/#post5149524)
 * [Helpful template for init.d scripts](https://github.com/fhd/init-script-template/blob/master/template)
+* [Live stream using darkice and icecast2](https://stmllr.net/blog/live-mp3-streaming-from-audio-in-with-darkice-and-icecast2-on-raspberry-pi/)
+* [Ask Ubuntu Darkice/Icecast2 guide](http://askubuntu.com/questions/28496/how-do-i-setup-an-icecast-server-for-broadcasting-audio-in-my-network)
+* [Sonocast](https://github.com/gpothier/sonoscast)
+* [Stream audio from Ubuntu to DLNA](https://sandalov.org/blog/1441/)
+* [Example agent (in python)](https://github.com/brainsqueezer/scripts/blob/master/agent.py)

@@ -2,12 +2,11 @@ FROM resin/rpi-raspbian:jessie
 
 MAINTAINER Cameron Hunter <hello@cameronhunter.co.uk>
 
-ENV SONOS_USER sonos
-
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     bluez \
     bluez-tools \
     pulseaudio-module-bluetooth \
+    pulseaudio-module-zeroconf \
     nano less
 
 COPY app                  /app
