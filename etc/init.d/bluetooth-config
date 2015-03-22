@@ -1,11 +1,11 @@
 #!/bin/sh
 ### BEGIN INIT INFO
 # Provides:            bluetooth-config
-# Required-Start:      $local_fs $syslog dbus
+# Required-Start:      $local_fs $syslog dbus bluetooth
 # Required-Stop:       $local_fs $syslog
 # Default-Start:       2 3 4 5
 # Default-Stop:        0 1 6
-# Short-Description:   Configures bluetooth
+# Short-Description:   Configures sonos-bluetooth
 ### END INIT INFO
 
 . /lib/lsb/init-functions
@@ -15,8 +15,6 @@ BLUETOOTH_NAME=$(cat /app/config/bluetooth-name)
 
 case "$1" in
   start)
-    $THIS stop
-    sleep 1
     $THIS configure
     log_daemon_msg "Starting bluetooth scanning"
     hciconfig hci0 up
