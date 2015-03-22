@@ -24,6 +24,7 @@ case "$1" in
 
   configure)
     log_daemon_msg "Configuring bluetooth"
+    hciconfig hci0 down
     hciconfig hci0 name $BLUETOOTH_NAME
     hciconfig hci0 class 0x240414
     log_end_msg 0
