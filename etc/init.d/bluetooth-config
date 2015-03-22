@@ -10,13 +10,20 @@
 
 . /lib/lsb/init-functions
 
+THIS=$0
 BLUETOOTH_NAME=$(cat /app/config/bluetooth-name)
 
 case "${1}" in
-  start)
+  configure)
     log_daemon_msg "Configuring bluetooth"
     hciconfig hci0 name $BLUETOOTH_NAME
     hciconfig hci0 class 0x240414
+    log_end_msg 0
+    ;;
+
+  start)
+    $THIS configure
+    log_daemon_msg "Starting bluetooth scanning"
     hciconfig hci0 up
     hciconfig hci0 piscan
     log_end_msg 0
@@ -29,17 +36,17 @@ case "${1}" in
     ;;
 
   restart)
-    ${0} stop
+    $THIS stop
     sleep 1
-    ${0} start
+    $THIS start
     ;;
 
   status)
-    status_of_proc "$DAEMON" "`basename $DAEMON`" && exit 0 || exit $?
+    hciconfig -a
     ;;
 
   *)
-    echo "Usage: ${0} {start|stop|restart|status}"
+    echo "Usage: $THIS {start|stop|restart|status}"
     exit 1
     ;;
 esac
