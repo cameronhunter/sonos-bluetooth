@@ -18,6 +18,7 @@ Trying to make a Raspberry Pi Bluetooth A2DP to Sonos bridge. I want it to be co
 * I can't seem to configure `Bluez5` to use legacy pairing mode (i.e. pin code).
 * `Bluez5` doesn't include the `bluetooth-agent` anymore.
 * I can't get `Bluez4` to use `main.conf` for general configuration (`hcid.conf` is `Bluez3` only)
+* List of available [bluetoothctl agent capabilities](http://comments.gmane.org/gmane.linux.bluez.kernel/34784)
 
 ## Links
 

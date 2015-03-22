@@ -3,10 +3,6 @@
 # $NAME has surrounding quotes, let's remove them
 DEVICE=$(sed 's/\"//g' <<< $NAME)
 
-logger "[DEBUG] 0=$0"
-logger "[DEBUG] 1=$1"
-logger "[DEBUG] 2=$2"
-
 # Exit if not a valid MAC address
 if [[ ! $DEVICE =~ ^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$ ]]; then
   exit 0;
