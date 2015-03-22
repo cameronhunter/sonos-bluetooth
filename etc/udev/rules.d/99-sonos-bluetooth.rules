@@ -1,1 +1,1 @@
-ACTION=="add|remove", KERNEL=="input[0-9]*", RUN+="/app/bin/bluetooth-pulseaudio-loopback '$NAME' '$KERNEL'"
+ACTION=="add|remove", KERNEL=="input[0-9]*", RUN+="/app/bin/bluetooth-pulseaudio-loopback"

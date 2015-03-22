@@ -18,7 +18,6 @@ COPY etc/udev/rules.d/*   /etc/udev/rules.d/
 RUN adduser pulse bluetooth; \
     adduser root pulse-access; \
     update-rc.d 90-pulseaudio defaults; \
-    update-rc.d 95-bluetooth-agent defaults; \
     update-rc.d 99-bluetooth-config defaults;
 
 CMD ["/sbin/init"]

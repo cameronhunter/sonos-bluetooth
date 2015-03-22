@@ -1,7 +1,7 @@
 #!/bin/sh
 ### BEGIN INIT INFO
 # Provides:            bluetooth-config
-# Required-Start:      $local_fs $syslog dbus bluetooth
+# Required-Start:      $local_fs $syslog dbus
 # Required-Stop:       $local_fs $syslog
 # Default-Start:       2 3 4 5
 # Default-Stop:        0 1 6
@@ -26,7 +26,6 @@ case "$1" in
     log_daemon_msg "Configuring bluetooth"
     hciconfig hci0 name $BLUETOOTH_NAME
     hciconfig hci0 class 0x240414
-    service bluetooth restart
     log_end_msg 0
     ;;
 
