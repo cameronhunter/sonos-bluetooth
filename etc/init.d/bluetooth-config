@@ -13,19 +13,21 @@
 THIS=$0
 BLUETOOTH_NAME=$(cat /app/config/bluetooth-name)
 
-case "${1}" in
-  configure)
-    log_daemon_msg "Configuring bluetooth"
-    hciconfig hci0 name $BLUETOOTH_NAME
-    hciconfig hci0 class 0x240414
-    log_end_msg 0
-    ;;
-
+case "$1" in
   start)
+    $THIS stop
+    sleep 1
     $THIS configure
     log_daemon_msg "Starting bluetooth scanning"
     hciconfig hci0 up
     hciconfig hci0 piscan
+    log_end_msg 0
+    ;;
+
+  configure)
+    log_daemon_msg "Configuring bluetooth"
+    hciconfig hci0 name $BLUETOOTH_NAME
+    hciconfig hci0 class 0x240414
     log_end_msg 0
     ;;
 
@@ -35,18 +37,8 @@ case "${1}" in
     log_end_msg 0
     ;;
 
-  restart)
-    $THIS stop
-    sleep 1
-    $THIS start
-    ;;
-
-  status)
-    hciconfig -a
-    ;;
-
   *)
-    echo "Usage: $THIS {start|stop|restart|status}"
+    echo "Usage: $THIS {start|stop}"
     exit 1
     ;;
 esac

@@ -1,37 +1,29 @@
 #!/bin/bash
-name=$(sed 's/\"//g' <<< $NAME)
 
-#exit if not a BT address
-if [[ ! $name =~ ^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$ ]]; then
+# $NAME has surrounding quotes, let's remove them
+DEVICE=$(sed 's/\"//g' <<< $NAME)
+
+# Exit if not a valid MAC address
+if [[ ! $DEVICE =~ ^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$ ]]; then
   exit 0;
 fi
 
+SOURCE=bluez_source.$(sed 's/:/_/g' <<< $DEVICE)
+SINK=$(pactl list | grep -m 1 'Name: alsa_output' | cut -c 8-)
 THIS=$(basename $0)
 
-SOURCE=bluez_source.$(sed 's/:/_/g' <<< $name)
-SINK=$(pactl list | grep -m 1 'Name: alsa_output' | cut -c 8-)
-
-action=$(expr "$ACTION" : "\([a-zA-Z]\+\).*")
-
-logger "[$THIS] NAME=$NAME"
-logger "[$THIS] ACTION=$ACTION"
-
-case "$action" in
+case "$ACTION" in
   add)
-    logger "[$THIS] Bluetooth device is being added [$name]"
-    logger "[$THIS] Patching $SOURCE into ALSA sink $SINK"
-
-    # loop back this source to the default sink
-    handle=$(pactl load-module module-loopback source=$SOURCE sink=$SINK)
-    logger "[$THIS] PulseAudio module-loopback returned handle [$handle]"
+    logger "[$THIS] Bluetooth device $DEVICE added"
+    pactl load-module module-loopback source=$SOURCE sink=$SINK
+    logger "[$THIS] Patched $SOURCE into $SINK"
     ;;
 
   remove)
-    logger "[$THIS] Bluetooth device is being removed [$name]"
-    # remove any loopback modules assigned to this source
-    # only required for USB sound cards, which PulseAudio will not automatically remove
+    logger "[$THIS] Bluetooth device $DEVICE removed"
+
     for handle in $(pactl list short modules | grep module-loopback | grep source=$SOURCE | cut -f 1); do
-      logger "[$THIS] Unloading module-loopback with handle [$handle]"
+      logger "[$THIS] Unloading module-loopback with handle $handle"
       pactl unload-module $handle
     done
     ;;
