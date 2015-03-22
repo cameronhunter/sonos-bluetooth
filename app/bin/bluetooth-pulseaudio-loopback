@@ -6,11 +6,10 @@ if [[ ! $name =~ ^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$ ]]; then
   exit 0;
 fi
 
-RUN_AS=pulse
 THIS=$(basename $0)
 
 SOURCE=bluez_source.$(sed 's/:/_/g' <<< $name)
-SINK=$(su -c "pactl list | grep -m 1 'Name: alsa_output' | cut -c 8-" $RUN_AS)
+SINK=$(pactl list | grep -m 1 'Name: alsa_output' | cut -c 8-)
 
 action=$(expr "$ACTION" : "\([a-zA-Z]\+\).*")
 
@@ -23,7 +22,7 @@ case "$action" in
     logger "[$THIS] Patching $SOURCE into ALSA sink $SINK"
 
     # loop back this source to the default sink
-    handle=$(su -c "pactl load-module module-loopback source=$SOURCE sink=$SINK" $RUN_AS)
+    handle=$(pactl load-module module-loopback source=$SOURCE sink=$SINK)
     logger "[$THIS] PulseAudio module-loopback returned handle [$handle]"
     ;;
 
@@ -31,7 +30,7 @@ case "$action" in
     logger "[$THIS] Bluetooth device is being removed [$name]"
     # remove any loopback modules assigned to this source
     # only required for USB sound cards, which PulseAudio will not automatically remove
-    for handle in $(su -c "pactl list short modules | grep module-loopback | grep source=$SOURCE | cut -f 1" $RUN_AS); do
+    for handle in $(pactl list short modules | grep module-loopback | grep source=$SOURCE | cut -f 1); do
       logger "[$THIS] Unloading module-loopback with handle [$handle]"
       pactl unload-module $handle
     done

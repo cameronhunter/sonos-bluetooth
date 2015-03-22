@@ -16,6 +16,7 @@ COPY etc/pulse/*          /etc/pulse/
 COPY etc/udev/rules.d/*   /etc/udev/rules.d/
 
 RUN adduser pulse lp; \
+    adduser root pulse-access; \
     update-rc.d pulseaudio defaults; \
     update-rc.d bluetooth-config defaults;
 
