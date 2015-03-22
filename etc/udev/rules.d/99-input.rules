@@ -1,1 +1,0 @@
-KERNEL=="input[0-9]*", RUN+="/app/bin/bluetooth-pulseaudio-loopback"
