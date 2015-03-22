@@ -16,7 +16,6 @@
 
 DAEMON=/usr/bin/pulseaudio
 PIDFILE=/var/run/pulse/pid
-DAEMONUSER=pulse
 PATH=/sbin:/bin:/usr/sbin:/usr/bin
 
 test -x $DAEMON || exit 0
