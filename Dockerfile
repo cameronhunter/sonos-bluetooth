@@ -7,7 +7,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     bluez-tools \
     pulseaudio-module-bluetooth \
     pulseaudio-module-zeroconf \
-    nano less
+    nano less openssh-server
 
 COPY app                  /app
 COPY etc/init.d/*         /etc/init.d/
