@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# $NAME has surrounding quotes, let's remove them
+DEVICE=$(sed 's/\"//g' <<< $NAME)
+
+# Exit if not a valid MAC address
+if [[ ! $DEVICE =~ ^([0-9A-F]{2}[:-]){5}([0-9A-F]{2})$ ]]; then
+  exit 0;
+fi
+
+SOURCE=bluez_source.$(sed 's/:/_/g' <<< $DEVICE)
+SINK=$(pactl list | grep -m 1 'Name: alsa_output' | cut -c 8-)
+THIS=$(basename $0)
+
+case "$ACTION" in
+  add)
+    logger "[$THIS] Bluetooth device $DEVICE added"
+    pactl load-module module-loopback source=$SOURCE sink=$SINK
+    logger "[$THIS] Patched $SOURCE into $SINK"
+    ;;
+
+  remove)
+    logger "[$THIS] Bluetooth device $DEVICE removed"
+
+    for handle in $(pactl list short modules | grep module-loopback | grep source=$SOURCE | cut -f 1); do
+      logger "[$THIS] Unloading module-loopback with handle $handle"
+      pactl unload-module $handle
+    done
+    ;;
+esac

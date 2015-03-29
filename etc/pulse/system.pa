@@ -1,0 +1,49 @@
+#!/usr/bin/pulseaudio -nF
+
+### Automatically load driver modules depending on the hardware available
+.ifexists module-udev-detect.so
+  load-module module-udev-detect
+.endif
+
+### Load several protocols
+.ifexists module-esound-protocol-unix.so
+  load-module module-esound-protocol-unix
+.endif
+load-module module-native-protocol-unix
+
+### Automatically restore the volume of streams and devices
+load-module module-stream-restore
+load-module module-device-restore
+
+### Automatically restore the default sink/source when changed by the user
+### during runtime
+### NOTE: This should be loaded as early as possible so that subsequent modules
+### that look up the default sink/source get the right value
+load-module module-default-device-restore
+
+### If you want to allow TCP connections, set access to "remote" or "local,remote".
+.ifexists module-dbus-protocol.so
+  load-module module-dbus-protocol access=local
+.endif
+
+### Automatically move streams to the default sink if the sink they are
+### connected to dies, similar for sources
+load-module module-rescue-streams
+
+### Make sure we always have a sink around, even if it is a null sink.
+load-module module-always-sink
+
+### Automatically suspend sinks/sources that become idle for too long
+load-module module-suspend-on-idle
+
+### Enable positioned event sounds
+load-module module-position-event-sounds
+
+### Automatically load driver modules for Bluetooth hardware
+.ifexists module-bluetooth-discover.so
+    load-module module-bluetooth-discover
+.endif
+
+### Automatically load driver modules for DLNA streaming
+load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1 auth-anonymous=1
+load-module module-zeroconf-publish

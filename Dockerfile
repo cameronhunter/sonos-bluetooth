@@ -1,27 +1,22 @@
-FROM resin/rpi-raspbian:wheezy-2015-01-15
+FROM resin/rpi-raspbian:jessie
 
-# Install dependencies
-ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get install -y \
-  bluez \
-  bluez-alsa \
-  bluez-tools \
-  pulseaudio-module-bluetooth \
-  python-gobject \
-  python-gobject-2 \
-  qdbus
+MAINTAINER Cameron Hunter <hello@cameronhunter.co.uk>
 
-RUN sed -i '/\[General\]/c\\[General\]\nEnable=Source,Sink,Media,Socket' /etc/bluetooth/audio.conf
-RUN sed -i '/; resample-method = speex-float-3/c\resample-method = trivial' /etc/pulse/daemon.conf
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    bluez \
+    bluez-tools \
+    pulseaudio-module-bluetooth \
+    pulseaudio-module-zeroconf \
+    nano less
 
-# Setup user
-ENV SONOS_USER sonos
-ENV PULSEAUDIO_GROUP lp
-RUN useradd --create-home --groups $PULSEAUDIO_GROUP $SONOS_USER
+COPY app                  /app
+COPY etc/init.d/*         /etc/init.d/
+COPY etc/pulse/*          /etc/pulse/
+COPY etc/udev/rules.d/*   /etc/udev/rules.d/
 
-# Setup bluetooth
-ENV SONOS_NAME Sonos
+RUN adduser pulse bluetooth; \
+    adduser root pulse-access; \
+    update-rc.d 90-pulseaudio defaults; \
+    update-rc.d 99-bluetooth-config defaults;
 
-# Run sonos-bluetooth
-COPY lib /sonos-bluetooth
-CMD ["sh", "/sonos-bluetooth/startup.sh"]
+CMD ["/sbin/init"]
