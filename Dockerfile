@@ -7,6 +7,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     bluez-tools \
     pulseaudio-module-bluetooth \
     pulseaudio-module-zeroconf \
+    rfkill \
     nano less openssh-server
 
 COPY app                  /app
@@ -16,7 +17,7 @@ COPY etc/udev/rules.d/*   /etc/udev/rules.d/
 
 RUN adduser pulse bluetooth; \
     adduser root pulse-access; \
-    update-rc.d 90-pulseaudio defaults; \
-    update-rc.d 99-bluetooth-config defaults;
+    update-rc.d pulseaudio defaults; \
+    update-rc.d bluetooth-config defaults;
 
 CMD ["/sbin/init"]

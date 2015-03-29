@@ -15,6 +15,7 @@ BLUETOOTH_NAME=$(cat /app/config/bluetooth-name)
 
 case "$1" in
   start)
+    rfkill unblock all
     $THIS configure
     log_daemon_msg "Starting bluetooth scanning"
     hciconfig hci0 up
