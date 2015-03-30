@@ -44,3 +44,4 @@ Trying to make a Raspberry Pi Bluetooth A2DP to Sonos bridge. I want it to be co
 * [Sonocast](https://github.com/gpothier/sonoscast)
 * [Stream audio from Ubuntu to DLNA](https://sandalov.org/blog/1441/)
 * [Example agent (in python)](https://github.com/brainsqueezer/scripts/blob/master/agent.py)
+* [AirSonos Github](https://github.com/stephen/airsonos/)
