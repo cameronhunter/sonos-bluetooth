@@ -45,3 +45,6 @@ Trying to make a Raspberry Pi Bluetooth A2DP to Sonos bridge. I want it to be co
 * [Stream audio from Ubuntu to DLNA](https://sandalov.org/blog/1441/)
 * [Example agent (in python)](https://github.com/brainsqueezer/scripts/blob/master/agent.py)
 * [AirSonos Github](https://github.com/stephen/airsonos/)
+* [DarkIce and IceCast2 on raspi](https://stmllr.net/blog/live-mp3-streaming-from-audio-in-with-darkice-and-icecast2-on-raspberry-pi/)
+* [Raspi baby monitor using darkice and icecast2](http://mattkaar.com/blog/2013/05/26/web-streaming-with-the-raspberry-pi-baby-monitor/)
+* [Automated scripts to setup icecast2](https://github.com/grailsasia/vps-setup-audio-streaming/blob/master/setup-icecast-server.sh)
