@@ -12,6 +12,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     nano less openssh-server
 
 COPY app                  /app
+COPY etc/icecast2/*       /etc/icecast2/
 COPY etc/init.d/*         /etc/init.d/
 COPY etc/pulse/*          /etc/pulse/
 COPY etc/udev/rules.d/*   /etc/udev/rules.d/
