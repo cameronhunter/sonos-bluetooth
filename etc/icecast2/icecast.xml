@@ -1,13 +1,7 @@
 <icecast>
-    <!-- location and admin are two arbitrary strings that are e.g. visible
-         on the server info page of the icecast web interface
-         (server_version.xsl). -->
-    <location>Earth</location>
-    <admin>icemaster@localhost</admin>
-
     <limits>
-        <clients>100</clients>
-        <sources>2</sources>
+        <clients>1000</clients>
+        <sources>42</sources>
         <threadpool>5</threadpool>
         <queue-size>524288</queue-size>
         <client-timeout>30</client-timeout>
@@ -118,50 +112,48 @@
     <mount>
         <mount-name>/auth_example.ogg</mount-name>
         <authentication type="url">
-_mount.php"/>
-_mount.php"/>
-_listener.php"/>
-_listener.php"/>
-            <option name="headers"         value="x-pragma,x-token"/>
-            <option name="header_prefix"   value="ClientHeader."/>
+            <option name="mount_add"       value="http://myauthserver.net/notify_mount.php"/>
+            <option name="mount_remove"    value="http://myauthserver.net/notify_mount.php"/>
+            <option name="listener_add"    value="http://myauthserver.net/notify_listener.php"/>
+            <option name="listener_remove" value="http://myauthserver.net/notify_listener.php"/>
         </authentication>
-      </mount>
+    </mount>
 
-      -->
+    -->
 
-      <fileserve>1</fileserve>
+    <fileserve>1</fileserve>
 
-      <paths>
-                  <!-- basedir is only used if chroot is enabled -->
-          <basedir>/usr/share/icecast2</basedir>
+    <paths>
+		<!-- basedir is only used if chroot is enabled -->
+        <basedir>/usr/share/icecast2</basedir>
 
-          <!-- Note that if <chroot> is turned on below, these paths must both
-               be relative to the new root, not the original root -->
-          <logdir>/var/log/icecast2</logdir>
-          <webroot>/usr/share/icecast2/web</webroot>
-          <adminroot>/usr/share/icecast2/admin</adminroot>
-          <!-- <pidfile>/usr/share/icecast2/icecast.pid</pidfile> -->
+        <!-- Note that if <chroot> is turned on below, these paths must both
+             be relative to the new root, not the original root -->
+        <logdir>/var/log/icecast2</logdir>
+        <webroot>/usr/share/icecast2/web</webroot>
+        <adminroot>/usr/share/icecast2/admin</adminroot>
+        <!-- <pidfile>/usr/share/icecast2/icecast.pid</pidfile> -->
 
-          <!-- Aliases: treat requests for 'source' path as being for 'dest' path
+        <!-- Aliases: treat requests for 'source' path as being for 'dest' path
              May be made specific to a port or bound address using the "port"
              and "bind-address" attributes.
           -->
         <!--
-        <alias source="/foo" destination="/bar"/>
+        <alias source="/foo" dest="/bar"/>
           -->
         <!-- Aliases: can also be used for simple redirections as well,
              this example will redirect all requests for http://server:port/ to
              the status page
           -->
-        <alias source="/" destination="/status.xsl"/>
+        <alias source="/" dest="/status.xsl"/>
     </paths>
 
     <logging>
         <accesslog>access.log</accesslog>
         <errorlog>error.log</errorlog>
         <!-- <playlistlog>playlist.log</playlistlog> -->
-        <loglevel>3</loglevel> <!-- 4 Debug, 3 Info, 2 Warn, 1 Error -->
-        <logsize>10000</logsize> <!-- Max size of a logfile -->
+      	<loglevel>3</loglevel> <!-- 4 Debug, 3 Info, 2 Warn, 1 Error -->
+      	<logsize>10000</logsize> <!-- Max size of a logfile -->
         <!-- If logarchive is enabled (1), then when logsize is reached
              the logfile will be moved to [error|access|playlist].log.DATESTAMP,
              otherwise it will be moved to [error|access|playlist].log.old.

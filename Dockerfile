@@ -12,6 +12,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     nano less openssh-server
 
 COPY app                  /app
+COPY etc/default/*        /etc/default/
 COPY etc/icecast2/*       /etc/icecast2/
 COPY etc/init.d/*         /etc/init.d/
 COPY etc/pulse/*          /etc/pulse/
@@ -20,6 +21,7 @@ COPY etc/darkice.cfg      /etc/darkice.cfg
 
 RUN adduser pulse bluetooth; \
     adduser root pulse-access; \
+    systemctl enable icecast2; \
     update-rc.d pulseaudio defaults; \
     update-rc.d bluetooth-config defaults;
 
