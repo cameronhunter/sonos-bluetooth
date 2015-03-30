@@ -9,7 +9,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     icecast2 \
     pulseaudio-module-bluetooth \
     rfkill \
-    nano less openssh-server
+    nano less
 
 COPY app                  /app
 COPY etc/default/*        /etc/default/
@@ -22,7 +22,6 @@ COPY etc/darkice.cfg      /etc/darkice.cfg
 RUN adduser pulse bluetooth; \
     adduser root pulse-access; \
     systemctl enable icecast2; \
-    update-rc.d darkice defaults; \
     update-rc.d pulseaudio defaults; \
     update-rc.d bluetooth-config defaults;
 
