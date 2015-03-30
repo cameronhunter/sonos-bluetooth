@@ -22,6 +22,7 @@ COPY etc/darkice.cfg      /etc/darkice.cfg
 RUN adduser pulse bluetooth; \
     adduser root pulse-access; \
     systemctl enable icecast2; \
+    update-rc.d darkice defaults; \
     update-rc.d pulseaudio defaults; \
     update-rc.d bluetooth-config defaults;
 
