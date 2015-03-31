@@ -2,7 +2,7 @@ FROM resin/rpi-raspbian:jessie
 
 MAINTAINER Cameron Hunter <hello@cameronhunter.co.uk>
 
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --yes \
     bluez \
     bluez-tools \
     darkice \
