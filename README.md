@@ -20,6 +20,9 @@ Trying to make a Raspberry Pi Bluetooth A2DP to Sonos bridge. I want it to be co
 * I can't get `Bluez4` to use `main.conf` for general configuration (`hcid.conf` is `Bluez3` only)
 * List of available [bluetoothctl agent capabilities](http://comments.gmane.org/gmane.linux.bluez.kernel/34784)
 
+### Sonos
+* Can't play using the `http` url, using `x-rincon-mp3radio://192.168.1.102:8000/sonos-bluetooth.mp3` works just fine though.
+
 ## Links
 
 ### Similar projects
@@ -27,6 +30,7 @@ Trying to make a Raspberry Pi Bluetooth A2DP to Sonos bridge. I want it to be co
 * [Sonocast](https://github.com/gpothier/sonoscast)
 
 ### Useful
+* [Sonos Supported Audio Formats](https://sonos.custhelp.com/app/answers/detail/a_id/80/~/supported-audio-formats)
 * [Bluetooth Class of Device/Service (CoD) Generator](http://bluetooth-pentest.narod.ru/software/bluetooth_class_of_device-service_generator.html)
 
 ### Other Guides and Resources

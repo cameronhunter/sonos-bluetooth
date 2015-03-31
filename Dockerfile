@@ -7,6 +7,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --yes \
     bluez-tools \
     darkice \
     icecast2 \
+    mime-support \
     pulseaudio-module-bluetooth \
     rfkill \
     nano less
@@ -18,7 +19,6 @@ COPY etc/init.d/*         /etc/init.d/
 COPY etc/pulse/*          /etc/pulse/
 COPY etc/udev/rules.d/*   /etc/udev/rules.d/
 COPY etc/darkice.cfg      /etc/darkice.cfg
-COPY etc/mime.types       /etc/mime.types
 
 RUN adduser pulse bluetooth; \
     adduser root pulse-access; \
