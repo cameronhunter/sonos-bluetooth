@@ -18,6 +18,7 @@ COPY etc/init.d/*         /etc/init.d/
 COPY etc/pulse/*          /etc/pulse/
 COPY etc/udev/rules.d/*   /etc/udev/rules.d/
 COPY etc/darkice.cfg      /etc/darkice.cfg
+COPY etc/mime.types       /etc/mime.types
 
 RUN adduser pulse bluetooth; \
     adduser root pulse-access; \
