@@ -28,6 +28,7 @@ Trying to make a Raspberry Pi Bluetooth A2DP to Sonos bridge. I want it to be co
 ### Similar projects
 * [AirSonos Github](https://github.com/stephen/airsonos/)
 * [Sonocast](https://github.com/gpothier/sonoscast)
+* [Sonos Airplay](https://tomlee.wtf/2013/06/22/adding-airplay-to-a-sonos/)
 
 ### Useful
 * [Sonos Supported Audio Formats](https://sonos.custhelp.com/app/answers/detail/a_id/80/~/supported-audio-formats)
@@ -54,6 +55,9 @@ Trying to make a Raspberry Pi Bluetooth A2DP to Sonos bridge. I want it to be co
 #### systemd and init.d
 * [Helpful systemd forum post](https://wiki.archlinux.org/index.php/Systemd/User#D-Bus)
 * [Helpful template for init.d scripts](https://github.com/fhd/init-script-template/blob/master/template)
+* [Darkice systemd](https://bbs.archlinux.org/viewtopic.php?id=175851)
+* [Darkice initd](http://code-injection.blogspot.co.uk/2014/05/broadcasting-with-raspberry-pi.html)
+* [Another darkice initd](https://github.com/KMNR/Webstream/blob/master/StreamSwitch/darkice.init.d)
 
 #### darkice and icecast2
 * [Live stream using darkice and icecast2](https://stmllr.net/blog/live-mp3-streaming-from-audio-in-with-darkice-and-icecast2-on-raspberry-pi/)
@@ -63,3 +67,4 @@ Trying to make a Raspberry Pi Bluetooth A2DP to Sonos bridge. I want it to be co
 * [Raspi baby monitor using darkice and icecast2](http://mattkaar.com/blog/2013/05/26/web-streaming-with-the-raspberry-pi-baby-monitor/)
 * [Automated scripts to setup icecast2](https://github.com/grailsasia/vps-setup-audio-streaming/blob/master/setup-icecast-server.sh)
 * [How-to forge for Icecast](https://www.howtoforge.com/linux_webradio_with_icecast2_ices2)
+* [Darkice `/etc/default/darkice`](http://apt-browse.org/browse/debian/wheezy/main/i386/darkice/1.0-1/file/etc/default/darkice)
