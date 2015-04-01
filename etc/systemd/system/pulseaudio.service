@@ -4,7 +4,7 @@ After=sound.target
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/pulseaudio --start --resample-method=trivial --system --disallow-exit --disallow-module-loading=0 --daemonize --log-target=syslog --high-priority
+ExecStart=/usr/bin/pulseaudio --resample-method=trivial --system --disallow-exit --disallow-module-loading=0 --daemonize --log-target=syslog --high-priority
 ExecStop=/usr/bin/pulseaudio --kill
 
 [Install]
