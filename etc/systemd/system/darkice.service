@@ -1,11 +1,13 @@
 [Unit]
 Description=Start Darkice source for Icecast2
+After=pulseaudio.service
+After=icecast2.service
 Requires=pulseaudio.service
 Requires=icecast2.service
 
 [Service]
 Type=forking
-ExecStart=/usr/bin/darkice -c /etc/darkice/darkice.cfg
+ExecStart=/usr/bin/darkice -c /etc/darkice/darkice.cfg &
 
 [Install]
 WantedBy=multi-user.target
