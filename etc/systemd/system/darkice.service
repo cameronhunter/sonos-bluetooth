@@ -6,8 +6,10 @@ Requires=pulseaudio.service
 Requires=icecast2.service
 
 [Service]
-Type=forking
-ExecStart=/usr/bin/darkice -c /etc/darkice/darkice.cfg &
+Type=oneshot
+RemainAfterExit=yes
+KillMode=none
+ExecStart=/usr/bin/darkice -c /etc/darkice/darkice.cfg
 
 [Install]
 WantedBy=multi-user.target
