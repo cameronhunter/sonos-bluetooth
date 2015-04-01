@@ -12,19 +12,21 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install --yes \
     rfkill \
     nano less
 
-COPY app                  /app
-COPY etc/default/*        /etc/default/
-COPY etc/icecast2/*       /etc/icecast2/
-COPY etc/init.d/*         /etc/init.d/
-COPY etc/pulse/*          /etc/pulse/
-COPY etc/udev/rules.d/*   /etc/udev/rules.d/
-COPY etc/darkice.cfg      /etc/darkice.cfg
+COPY app                    /app
+COPY etc/darkice/*          /etc/darkice/
+COPY etc/default/*          /etc/default/
+COPY etc/icecast2/*         /etc/icecast2/
+COPY etc/init.d/*           /etc/init.d/
+COPY etc/pulse/*            /etc/pulse/
+COPY etc/systemd/system/*   /etc/systemd/system/
+COPY etc/udev/rules.d/*     /etc/udev/rules.d/
 
 RUN adduser pulse bluetooth; \
     adduser root pulse-access; \
+    systemctl enable darkice; \
     systemctl enable icecast2; \
     update-rc.d pulseaudio defaults; \
-    update-rc.d bluetooth-config defaults 99;
+    update-rc.d bluetooth-config defaults;
 
 EXPOSE 8000
 
