@@ -25,7 +25,7 @@ RUN adduser pulse bluetooth; \
     adduser root pulse-access; \
     systemctl enable darkice; \
     systemctl enable icecast2; \
-    update-rc.d pulseaudio defaults; \
+    systemctl enable pulseaudio; \
     update-rc.d bluetooth-config defaults;
 
 EXPOSE 8000
